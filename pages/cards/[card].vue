@@ -6,6 +6,38 @@
     </select>
     <input type="file" accept="image/*" @change="loadFile($event)">
   </div>
+  <div>
+    <input type="text" v-model="cardData.title.name">
+  </div>
+  <ClientOnly>
+    <highlightjs
+        :code='`<article class="card">
+    <div class="card__icon card__icon--top">
+      <img src="/" alt="icon">
+    </div>
+    <div class="card__text">
+      <h3 class="card__subtitle">10 June 2020</h3>
+      <h2 class="card__title">${cardData.title.name}</h2>
+      <p class="card__description">${cardData.description}</p>
+      <button class="card__btn">
+        <img src="/" alt="icon" class="card__icon card__icon--btn">
+        <span class="card__subtitle card__subtitle--card">${cardData.btnText}</span>
+      </button>
+    </div>
+    <div class="card__footer">
+      <div class="card__thumb">
+        <img src="/" alt="icon" class="card__icon card__icon--footer">
+        <span class="card__subtitle card__subtitle--footer">Calories</span>
+      </div>
+      <div class="card__thumb">
+        <img src="/" alt="icon" class="card__icon card__icon--footer">
+        <span class="card__subtitle card__subtitle--footer">45 Min</span>
+      </div>
+    </div>
+  </article>`'
+        language="html"
+        />
+  </ClientOnly>
 </template>
 <script>
   export default {
@@ -33,18 +65,12 @@
               subtitle: '45 Min'
             }
           ]
-        }
+        },
       }
     },
 
     methods: {
       loadFile(e) {
-        // const reader = new FileReader();
-        // reader.onload = e => variable = e.target.result;
-        // reader.readAsDataURL(this.files[0]);
-
-        // this.cardData.background = variable;
-
         this.cardData.background = URL.createObjectURL(e.target.files[0]);
 
         // remove the background image when the file input is cleared

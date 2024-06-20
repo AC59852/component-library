@@ -5,7 +5,7 @@
     </div>
     <div class="card__text">
       <h3 class="card__subtitle">10 June 2020</h3>
-      <h2 class="card__title">{{ card.title.name }}</h2>
+      <h2 class="card__title">{{ cardData.title.name }}</h2>
       <p class="card__description">The routines are designed to not only give you a full-body workout but also strengthen weak points—and pump up your trophy muscles.</p>
       <button class="card__btn">
         <img src="/" alt="icon" class="card__icon card__icon--btn">
@@ -31,22 +31,21 @@ export default {
 
   data() {
     return {
-      card: this.cardData
     }
   },
 
   // when the card.background changes, update the background image
   watch: {
     'card.background': function() {
-      this.$el.style.backgroundImage = `url(${this.card.background})`
-    }
+      this.$el.style.backgroundImage = `url(${this.cardData.background})`
+    },
   }
 }
 </script>
 
 <style>
   .card__title {
-    color: v-bind(card.title.color)
+    color: v-bind(cardData.title.color)
   }
 
   .card {
@@ -54,5 +53,6 @@ export default {
     width: 350px;
     background-size: cover;
     background-position: center;
+    background-image: url('@/assets/images/card_img.png');
   }
 </style>
