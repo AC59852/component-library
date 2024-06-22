@@ -37,6 +37,14 @@
   </article>`'
         language="html"
         />
+    <highlightjs 
+      :code="`
+      .card__title {
+        color: ${cardData.title.color}
+      }
+      `"
+      language="css"
+    />
   </ClientOnly>
 </template>
 <script>

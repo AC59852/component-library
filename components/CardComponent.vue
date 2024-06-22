@@ -34,11 +34,11 @@ export default {
     }
   },
 
-  // when the card.background changes, update the background image
+  // when the cardData.background changes, update the background image
   watch: {
-    'card.background': function() {
-      this.$el.style.backgroundImage = `url(${this.cardData.background})`
-    },
+    'cardData.background': function(newVal) {
+      this.$el.style.backgroundImage = `url(${newVal})`
+    }
   }
 }
 </script>
