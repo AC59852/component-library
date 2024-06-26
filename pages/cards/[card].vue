@@ -1,13 +1,17 @@
 <template>
   <div>
     <CardComponent :cardData="cardData" />
-    <select name="colorSelect" id="dropdown" v-model="cardData.title.color">
+    <!-- <select name="colorSelect" id="dropdown" v-model="cardData.title.color">
       <option v-for="color in colors" :value="color">{{ color }}</option>
-    </select>
+    </select> -->
     <input type="file" accept="image/*" @change="loadFile($event)">
   </div>
   <div>
     <input type="text" v-model="cardData.title.name">
+  </div>
+  <div>
+    <button @click="changeColour('.card__title')">Colour Picker</button>
+    <h3>Current Colour: <span class="card__color">{{ cardData.title.color }}</span></h3>
   </div>
   <ClientOnly>
     <highlightjs
@@ -48,6 +52,9 @@
   </ClientOnly>
 </template>
 <script>
+  import Picker from 'vanilla-picker/csp';
+  import 'vanilla-picker/dist/vanilla-picker.csp.css';
+
   export default {
     data() {
       return {
@@ -85,7 +92,40 @@
         if (!e.target.files[0]) {
           this.cardData.background = '';
         }
+      },
+
+      changeColour(e) {
+        // if a picker is already open, do nothing
+        if (document.querySelector('.picker_wrapper')) return;
+
+        const picker = new Picker({
+          parent: document.querySelector(e),
+          popup: false,
+          onChange: color => {
+            this.cardData.title.color = color.hex;
+          },
+          // onDone, close the picker
+          onDone: color => {
+            picker.destroy();
+          }
+        });
       }
     }
   }
 </script>
+<style>
+.card__color {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.card__color::before {
+  content: '';
+  height: 25px;
+  width: 25px;
+  display: flex;
+  background-color: v-bind(cardData.title.color);
+}
+</style>

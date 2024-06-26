@@ -12,6 +12,7 @@
   "dependencies": {
     "@highlightjs/vue-plugin": "^2.1.0",
     "nuxt": "^3.12.2",
+    "vanilla-picker": "^2.12.3",
     "vue": "^3.4.29",
     "vue-router": "^4.3.3"
   }
